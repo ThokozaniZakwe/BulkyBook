@@ -15,8 +15,8 @@ namespace BulkyBook.DataAccess.Repository
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
-            Category = new CategoryRepository(db);
-            SP_Call = new SP_Call(db);
+            Category = new CategoryRepository(_db);
+            SP_Call = new SP_Call(_db);
         }
 
         public ICategoryRepository Category { get; private set; }
@@ -27,9 +27,9 @@ namespace BulkyBook.DataAccess.Repository
             _db.Dispose();
         }
 
-        public async Task Save()
+        public void Save()
         {
-            await _db.SaveChangesAsync();
+            _db.SaveChangesAsync();
         }
     }
 }
